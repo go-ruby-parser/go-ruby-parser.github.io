@@ -1,0 +1,53 @@
+{{ define "main" }}
+<section class="hero">
+  <img class="hero-logo" src="{{ "img/logo.svg" | relURL }}" alt="go-ruby-parser logo" width="96" height="96">
+  <h1>
+    <span class="accent">{{ .Site.Params.heroAccent }}</span>
+  </h1>
+  {{ with .Site.Params.heroTagline }}<p class="tag">{{ . }}</p>{{ end }}
+  <div class="intro">
+    {{ range .Site.Params.heroIntro }}<p>{{ . | safeHTML }}</p>{{ end }}
+  </div>
+</section>
+
+<section id="why">
+  <h2>Why go-ruby-parser</h2>
+  <p>
+    Building Ruby tooling in Go used to mean shelling out to a Ruby process, binding
+    <strong>Prism</strong> (Ruby's official parser, written in C) over cgo, or
+    reimplementing the grammar from scratch. go-ruby-parser is a faithful, pure-Go
+    Ruby front-end — lexer, parser and AST — so a Go program can parse Ruby to a typed
+    syntax tree with <strong>no cgo</strong> and a single static binary. It is the
+    parser the Go ecosystem was missing.
+  </p>
+</section>
+
+<section id="repos">
+  <h2>Repositories</h2>
+  <div class="grid">
+    <div class="card">
+      <h4><a href="https://github.com/go-ruby-parser/parser">parser</a></h4>
+      <p>The front-end. <code>parser.Parse(src) (*ast.Program, error)</code>, with sub-packages <code>token</code>, <code>ast</code> and <code>lexer</code>. A stateful lexer (MRI <code>spaceSeen</code> semantics), a recursive-descent + Pratt parser with a scope stack, and a typed AST. 100% covered, differential-tested against MRI 4.0.5.</p>
+    </div>
+    <div class="card">
+      <h4><a href="https://go-ruby-parser.github.io/docs/">docs</a></h4>
+      <p>Documentation site (MkDocs Material): the public API, what's parsed, and the known limitations. <a href="https://github.com/go-ruby-parser/docs">Source →</a></p>
+    </div>
+    <div class="card">
+      <h4><a href="https://github.com/go-ruby-parser/brand">brand</a></h4>
+      <p>Logos and icons for the organization, in SVG / PNG / JPG / ICO / ICNS across colour, white and black variants.</p>
+    </div>
+  </div>
+</section>
+
+<section id="quality">
+  <h2>Quality bar</h2>
+  <ul class="features">
+    <li><strong>Pure Go.</strong> <code>CGO_ENABLED=0</code> — no cgo, no Prism, no Ruby process.</li>
+    <li><strong>100% test coverage.</strong> Gated in CI; the grammar is differential-tested against MRI Ruby 4.0.5.</li>
+    <li><strong>Reusable.</strong> A clean <code>Parse → *ast.Program</code> API any Go tool can build on (linters, formatters, LSP, doc generators).</li>
+    <li><strong>Multi-arch.</strong> Validated on all six 64-bit Go targets (amd64, arm64, riscv64, loong64, ppc64le, s390x).</li>
+    <li><strong>BSD-3-Clause</strong> on every source file.</li>
+  </ul>
+</section>
+{{ end }}

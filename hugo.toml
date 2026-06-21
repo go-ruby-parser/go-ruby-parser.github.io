@@ -1,0 +1,40 @@
+baseURL = 'https://go-ruby-parser.github.io/'
+locale  = 'en-us'
+title   = 'go-ruby-parser'
+# No theme — layouts live in ./layouts
+
+disableKinds = ['taxonomy', 'term', 'rss', 'sitemap']
+
+[params]
+  description = "go-ruby-parser is a pure-Go (CGO=0) Ruby front-end — a lexer, recursive-descent/Pratt parser and AST — for building Ruby tooling in Go without cgo or Prism."
+  brand       = "go-ruby-parser"
+  github      = "go-ruby-parser"
+  heroAccent  = "go-ruby-parser"
+  heroTagline = "A Ruby front-end in pure Go. Lexer, parser, AST — no cgo, no Prism."
+
+  heroIntro = [
+    "<strong>go-ruby-parser</strong> turns Ruby source into an AST: a stateful lexer, a recursive-descent parser with a Pratt expression core, and a typed syntax tree &mdash; all in <strong>pure Go, with cgo disabled</strong>. It is the front-end the Go ecosystem lacked for building Ruby tooling (linters, formatters, analysers, doc generators, LSP servers, transpilers) without shelling out to Ruby or binding Prism.",
+    "It was extracted from the <a href=\"https://github.com/go-embedded-ruby/ruby\">go-embedded-ruby</a> interpreter &mdash; which now consumes it &mdash; and is grown test-first against MRI Ruby 4.0.5, with 100% coverage enforced in CI across the six 64-bit targets."
+  ]
+
+[menu]
+  [[menu.main]]
+    identifier = "why"
+    name       = "Why"
+    url        = "#why"
+    weight     = 10
+  [[menu.main]]
+    identifier = "repos"
+    name       = "Repos"
+    url        = "#repos"
+    weight     = 20
+  [[menu.main]]
+    identifier = "quality"
+    name       = "Quality"
+    url        = "#quality"
+    weight     = 30
+  [[menu.main]]
+    identifier = "docs"
+    name       = "Docs"
+    url        = "https://go-ruby-parser.github.io/docs/"
+    weight     = 40
