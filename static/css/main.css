@@ -1,62 +1,62 @@
-/* go-ruby-parser landing — indigo palette, sibling of the go-* family pages.
+/* go-ruby-parser landing — Ruby-red palette, sibling of the go-* family pages.
    Same token shape as the other org landings; only the hex values change
-   so the pages read as one family. Accent: indigo (#6366f1). */
+   so the pages read as one family. Accent: Ruby red (#dc2626). */
 :root {
-  --fg:        #1e1b4b;
-  --bg:        #f5f6ff;
-  --bg-2:      #e0e7ff;
-  --muted:     #4338ca;
-  --accent:    #6366f1;
-  --accent-2:  #818cf8;
-  --accent-3:  #c7d2fe;
-  --code-bg:   #e0e7ff;
-  --border:    #c7d2fe;
-  --thread:    #6366f1;
-  --mesh-edge:        rgba(99, 102, 241, 0.32);
-  --mesh-edge-hi:     rgba(99, 102, 241, 0.85);
-  --mesh-arch-fill:   #6366f1;
-  --mesh-arch-halo:   rgba(99, 102, 241, 0.30);
-  --mesh-distro-fill: #818cf8;
+  --fg:        #450a0a;
+  --bg:        #fff5f5;
+  --bg-2:      #fee2e2;
+  --muted:     #b91c1c;
+  --accent:    #dc2626;
+  --accent-2:  #ef4444;
+  --accent-3:  #fca5a5;
+  --code-bg:   #fee2e2;
+  --border:    #fca5a5;
+  --thread:    #dc2626;
+  --mesh-edge:        rgba(220, 38, 38, 0.32);
+  --mesh-edge-hi:     rgba(220, 38, 38, 0.85);
+  --mesh-arch-fill:   #dc2626;
+  --mesh-arch-halo:   rgba(220, 38, 38, 0.30);
+  --mesh-distro-fill: #ef4444;
   --mesh-distro-halo: rgba(245, 158, 11, 0.22);
   --mesh-hub-fill:    #b45309;
   --mesh-hub-halo:    rgba(180, 83, 9, 0.36);
   --mesh-label-fg:    #78350f;
-  --mesh-container-dc-fill:     rgba(99, 102, 241, 0.06);
-  --mesh-container-dc-stroke:   rgba(99, 102, 241, 0.55);
-  --mesh-container-rack-fill:   rgba(99, 102, 241, 0.14);
-  --mesh-container-rack-stroke: rgba(99, 102, 241, 0.45);
+  --mesh-container-dc-fill:     rgba(220, 38, 38, 0.06);
+  --mesh-container-dc-stroke:   rgba(220, 38, 38, 0.55);
+  --mesh-container-rack-fill:   rgba(220, 38, 38, 0.14);
+  --mesh-container-rack-stroke: rgba(220, 38, 38, 0.45);
   --mesh-container-label-fg:    rgba(120, 53, 15, 0.85);
-  --hero-gradient-1:  rgba(199, 210, 254, 0.30);
-  --hero-gradient-2:  rgba(99, 102, 241, 0.18);
+  --hero-gradient-1:  rgba(254, 202, 202, 0.30);
+  --hero-gradient-2:  rgba(220, 38, 38, 0.18);
 }
 @media (prefers-color-scheme: dark) {
   :root {
-    --fg:        #e0e7ff;
-    --bg:        #0c0a1f;
-    --bg-2:      #1e1b4b;
-    --muted:     #a5b4fc;
-    --accent:    #818cf8;
-    --accent-2:  #c7d2fe;
-    --accent-3:  #c7d2fe;
-    --code-bg:   #1e1b4b;
-    --border:    #312e81;
-    --thread:    #818cf8;
-    --mesh-edge:        rgba(199, 210, 254, 0.32);
+    --fg:        #fee2e2;
+    --bg:        #1a0606;
+    --bg-2:      #450a0a;
+    --muted:     #fca5a5;
+    --accent:    #ef4444;
+    --accent-2:  #fca5a5;
+    --accent-3:  #fca5a5;
+    --code-bg:   #450a0a;
+    --border:    #7f1d1d;
+    --thread:    #ef4444;
+    --mesh-edge:        rgba(254, 202, 202, 0.32);
     --mesh-edge-hi:     rgba(253, 230, 138, 0.85);
-    --mesh-arch-fill:   #c7d2fe;
-    --mesh-arch-halo:   rgba(199, 210, 254, 0.30);
-    --mesh-distro-fill: #818cf8;
+    --mesh-arch-fill:   #fca5a5;
+    --mesh-arch-halo:   rgba(254, 202, 202, 0.30);
+    --mesh-distro-fill: #ef4444;
     --mesh-distro-halo: rgba(251, 191, 36, 0.22);
-    --mesh-hub-fill:    #c7d2fe;
+    --mesh-hub-fill:    #fca5a5;
     --mesh-hub-halo:    rgba(253, 230, 138, 0.36);
-    --mesh-label-fg:    #c7d2fe;
-    --mesh-container-dc-fill:     rgba(199, 210, 254, 0.08);
-    --mesh-container-dc-stroke:   rgba(199, 210, 254, 0.65);
-    --mesh-container-rack-fill:   rgba(199, 210, 254, 0.15);
-    --mesh-container-rack-stroke: rgba(199, 210, 254, 0.55);
+    --mesh-label-fg:    #fca5a5;
+    --mesh-container-dc-fill:     rgba(254, 202, 202, 0.08);
+    --mesh-container-dc-stroke:   rgba(254, 202, 202, 0.65);
+    --mesh-container-rack-fill:   rgba(254, 202, 202, 0.15);
+    --mesh-container-rack-stroke: rgba(254, 202, 202, 0.55);
     --mesh-container-label-fg:    rgba(254, 243, 199, 0.95);
-    --hero-gradient-1:  rgba(199, 210, 254, 0.22);
-    --hero-gradient-2:  rgba(99, 102, 241, 0.30);
+    --hero-gradient-1:  rgba(254, 202, 202, 0.22);
+    --hero-gradient-2:  rgba(220, 38, 38, 0.30);
   }
 }
 * { box-sizing: border-box; }
