@@ -1,53 +1,154 @@
-{{ define "main" }}
-<section class="hero">
-  <img class="hero-logo" src="{{ "img/logo.svg" | relURL }}" alt="go-ruby-parser logo" width="96" height="96">
-  <h1>
-    <span class="accent">{{ .Site.Params.heroAccent }}</span>
-  </h1>
-  {{ with .Site.Params.heroTagline }}<p class="tag">{{ . }}</p>{{ end }}
-  <div class="intro">
-    {{ range .Site.Params.heroIntro }}<p>{{ . | safeHTML }}</p>{{ end }}
-  </div>
-</section>
-
-<section id="why">
-  <h2>Why go-ruby-parser</h2>
-  <p>
-    Building Ruby tooling in Go used to mean shelling out to a Ruby process, binding
-    <strong>Prism</strong> (Ruby's official parser, written in C) over cgo, or
-    reimplementing the grammar from scratch. go-ruby-parser is a faithful, pure-Go
-    Ruby front-end — lexer, parser and AST — so a Go program can parse Ruby to a typed
-    syntax tree with <strong>no cgo</strong> and a single static binary. It is the
-    parser the Go ecosystem was missing.
-  </p>
-</section>
-
-<section id="repos">
-  <h2>Repositories</h2>
-  <div class="grid">
-    <div class="card">
-      <h4><a href="https://github.com/go-ruby-parser/parser">parser</a></h4>
-      <p>The front-end. <code>parser.Parse(src) (*ast.Program, error)</code>, with sub-packages <code>token</code>, <code>ast</code> and <code>lexer</code>. A stateful lexer (MRI <code>spaceSeen</code> semantics), a recursive-descent + Pratt parser with a scope stack, and a typed AST. 100% covered, differential-tested against MRI 4.0.5.</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{ .Site.Title }} — a Ruby front-end in pure Go: lexer, parser, AST, no cgo</title>
+<meta name="description" content="go-ruby-parser — a pure-Go (CGO=0) Ruby front-end: a stateful lexer, a recursive-descent + Pratt parser, and a typed AST for building Ruby tooling in Go without cgo or Prism.">
+<style>
+  :root {
+    --bg: #ffffff; --fg: #1b1f24; --muted: #57606a; --card: #f6f8fa;
+    --border: #d0d7de; --accent: #DC2626; --accent-fg: #ffffff;
+    --ready: #1a7f37; --active: #0969da; --planned: #9a6700;
+  }
+  /* System mode (no explicit choice) follows the OS preference. */
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme]) {
+      --bg: #0d1117; --fg: #e6edf3; --muted: #9198a1; --card: #161b22;
+      --border: #30363d; --accent: #EF4444; --accent-fg: #0d1117;
+      --ready: #3fb950; --active: #4493f8; --planned: #d29922;
+    }
+  }
+  /* Forced dark (manual toggle). */
+  :root[data-theme="dark"] {
+    --bg: #0d1117; --fg: #e6edf3; --muted: #9198a1; --card: #161b22;
+    --border: #30363d; --accent: #EF4444; --accent-fg: #0d1117;
+    --ready: #3fb950; --active: #4493f8; --planned: #d29922;
+  }
+  .theme-toggle {
+    position: fixed; top: 14px; right: 14px; z-index: 10;
+    font: inherit; font-size: .8rem; cursor: pointer; padding: 6px 12px;
+    color: var(--fg); background: var(--card); border: 1px solid var(--border); border-radius: 999px;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--fg);
+    font: 16px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  }
+  .wrap { max-width: 920px; margin: 0 auto; padding: 0 20px; }
+  header { padding: 72px 0 32px; text-align: center; }
+  .logo { width: 88px; height: 88px; margin: 0 auto 18px; display: block; }
+  h1 { font-size: 2.6rem; margin: 0 0 .3em; letter-spacing: -.02em; }
+  .tagline { font-size: 1.2rem; color: var(--muted); margin: 0 auto; max-width: 660px; }
+  .pills { margin: 22px 0 0; }
+  .pill {
+    display: inline-block; margin: 4px; padding: 3px 10px; font-size: .82rem;
+    color: var(--muted); background: var(--card); border: 1px solid var(--border); border-radius: 999px;
+  }
+  .cta { margin: 30px 0 0; }
+  .badges { margin: 18px 0 0; }
+  .badges a { margin: 0 3px; text-decoration: none; }
+  .badges img { vertical-align: middle; }
+  .btn {
+    display: inline-block; padding: 10px 18px; margin: 4px; border-radius: 8px; text-decoration: none;
+    font-weight: 600; border: 1px solid var(--border);
+  }
+  .btn.primary { background: var(--accent); color: var(--accent-fg); border-color: var(--accent); }
+  .btn.ghost { color: var(--fg); background: transparent; }
+  .lead { color: var(--fg); max-width: 760px; margin: 8px auto 0; text-align: center; }
+  .lead code { background: var(--card); border: 1px solid var(--border); border-radius: 6px; padding: 1px 6px; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; padding: 24px 0 8px; }
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 18px 20px; }
+  .card h3 { margin: 0 0 .35em; font-size: 1.2rem; display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+  .card h3 a { text-decoration: none; }
+  .card p { margin: 0; color: var(--fg); }
+  .card p code { background: var(--bg); border: 1px solid var(--border); border-radius: 6px; padding: 1px 6px; }
+  .status { font-size: .72rem; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; padding: 2px 8px; border-radius: 999px; border: 1px solid var(--border); white-space: nowrap; }
+  .status.ready { color: var(--ready); }
+  .status.active { color: var(--active); }
+  .status.planned { color: var(--planned); }
+  .principles { color: var(--muted); text-align: center; padding: 10px 0 0; }
+  footer { color: var(--muted); text-align: center; padding: 40px 0 56px; font-size: .9rem; }
+  a { color: var(--accent); }
+</style>
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<script>
+  // Set the saved theme before paint to avoid a flash; "system" leaves no attribute.
+  (function(){var m=localStorage.getItem('theme');if(m&&m!=='system')document.documentElement.setAttribute('data-theme',m);})();
+</script>
+</head>
+<body>
+  <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle light, dark or system theme"><span id="theme-label">🖥️ System</span></button>
+  <header class="wrap">
+    <img class="logo" src="/img/logo.svg" alt="go-ruby-parser logo" width="88" height="88">
+    <h1>go-ruby-parser</h1>
+    <p class="tagline">A Ruby front-end in pure Go — lexer, parser, AST. No cgo, no Prism.</p>
+    <div class="pills">
+      <span class="pill">pure Go · zero cgo</span>
+      <span class="pill">stateful lexer</span>
+      <span class="pill">recursive-descent + Pratt</span>
+      <span class="pill">typed AST</span>
+      <span class="pill">Ruby 4.0 subset</span>
+      <span class="pill">pattern matching</span>
+      <span class="pill">heredocs</span>
+      <span class="pill">MRI 4.0.5 differential-tested</span>
+      <span class="pill">100% coverage</span>
+      <span class="pill">6 arches · WebAssembly</span>
     </div>
-    <div class="card">
-      <h4><a href="https://go-ruby-parser.github.io/docs/">docs</a></h4>
-      <p>Documentation site (MkDocs Material): the public API, what's parsed, and the known limitations. <a href="https://github.com/go-ruby-parser/docs">Source →</a></p>
+    <div class="cta">
+      <a class="btn primary" href="/docs/">Documentation</a>
+      <a class="btn ghost" href="https://github.com/go-ruby-parser/parser">GitHub</a>
     </div>
-    <div class="card">
-      <h4><a href="https://github.com/go-ruby-parser/brand">brand</a></h4>
-      <p>Logos and icons for the organization, in SVG / PNG / JPG / ICO / ICNS across colour, white and black variants.</p>
+    <div class="badges">
+      <a href="/docs/"><img alt="Documentation (MkDocs Material + mike)" src="https://img.shields.io/badge/docs-mkdocs--material-9B1C2E"></a>
+      <a href="https://github.com/go-ruby-parser/parser/blob/main/LICENSE"><img alt="License: BSD-3-Clause" src="https://img.shields.io/badge/license-BSD--3--Clause-blue"></a>
+      <a href="https://go.dev/dl/"><img alt="Go 1.26.4+" src="https://img.shields.io/badge/go-1.26.4%2B-00ADD8"></a>
+      <a href="https://github.com/go-ruby-parser/parser"><img alt="Coverage 100%" src="https://img.shields.io/badge/coverage-100%25-1a7f37"></a>
     </div>
-  </div>
-</section>
+  </header>
 
-<section id="quality">
-  <h2>Quality bar</h2>
-  <ul class="features">
-    <li><strong>Pure Go.</strong> <code>CGO_ENABLED=0</code> — no cgo, no Prism, no Ruby process.</li>
-    <li><strong>100% test coverage.</strong> Gated in CI; the grammar is differential-tested against MRI Ruby 4.0.5.</li>
-    <li><strong>Reusable.</strong> A clean <code>Parse → *ast.Program</code> API any Go tool can build on (linters, formatters, LSP, doc generators).</li>
-    <li><strong>Multi-arch.</strong> Validated on all six 64-bit Go targets (amd64, arm64, riscv64, loong64, ppc64le, s390x).</li>
-    <li><strong>BSD-3-Clause</strong> on every source file.</li>
-  </ul>
-</section>
-{{ end }}
+  <main class="wrap">
+    <p class="lead">go-ruby-parser turns Ruby source into a syntax tree: a stateful lexer,
+      a recursive-descent parser with a <strong>Pratt</strong> expression core, and a typed AST —
+      all in <strong>pure Go, with cgo disabled</strong>. No cgo, no <strong>Prism</strong>, no
+      shelling out to Ruby: the front-end the Go ecosystem lacked for building Ruby tooling
+      (linters, formatters, analysers, doc generators, LSP servers, transpilers) in pure Go.
+      It was extracted from <a href="https://github.com/go-embedded-ruby/ruby">go-embedded-ruby</a> —
+      which now consumes it — and is grown test-first against <strong>MRI Ruby 4.0.5</strong>, with
+      <strong>100% coverage</strong> enforced in CI across the six 64-bit targets.</p>
+
+    <section class="grid">
+      {{ range .Site.Params.repos }}
+      <article class="card">
+        <h3><a href="{{ .url }}">{{ .name }}</a> <span class="status {{ .status }}">{{ .status }}</span></h3>
+        <p>{{ .blurb | markdownify }}</p>
+      </article>
+      {{ end }}
+    </section>
+
+    <p class="principles">A pure-Go, cgo-disabled front-end, so it cross-compiles and embeds
+      anywhere — and, being CGO=0, also compiles to WebAssembly (<code>js/wasm</code> and
+      <code>wasip1/wasm</code>). It parses a broad, practical subset of Ruby 4.0 to a typed AST,
+      differential-tested against MRI's reference parser, over a clean
+      <code>Parse → *ast.Program</code> API any Go tool can build on. It is a standalone, reusable
+      module and the front-end member of the sibling family
+      <a href="https://github.com/go-ruby-marshal">go-ruby-marshal</a> ·
+      <a href="https://github.com/go-ruby-regexp">go-ruby-regexp</a>, consumed by
+      <a href="https://github.com/go-embedded-ruby">github.com/go-embedded-ruby</a>.</p>
+  </main>
+
+  <footer class="wrap">
+    BSD-3-Clause · <a href="https://github.com/go-ruby-parser">github.com/go-ruby-parser</a>
+  </footer>
+  <script>
+  (function(){
+    var order=['system','light','dark'], root=document.documentElement;
+    var labels={system:'🖥️ System',light:'☀️ Light',dark:'🌙 Dark'};
+    function apply(m){ if(m==='system'){root.removeAttribute('data-theme');}else{root.setAttribute('data-theme',m);} localStorage.setItem('theme',m); var el=document.getElementById('theme-label'); if(el)el.textContent=labels[m]; }
+    var mode=localStorage.getItem('theme')||'system'; apply(mode);
+    var btn=document.getElementById('theme-toggle');
+    if(btn) btn.addEventListener('click',function(){ mode=order[(order.indexOf(mode)+1)%order.length]; apply(mode); });
+  })();
+  </script>
+</body>
+</html>
