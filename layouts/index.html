@@ -88,6 +88,7 @@
       <span class="pill">stateful lexer</span>
       <span class="pill">recursive-descent + Pratt</span>
       <span class="pill">typed AST</span>
+      <span class="pill">v0.2.0 · 2026-09-21</span>
       <span class="pill">Ruby 4.0 subset</span>
       <span class="pill">pattern matching</span>
       <span class="pill">heredocs</span>
@@ -114,8 +115,14 @@
       shelling out to Ruby: the front-end the Go ecosystem lacked for building Ruby tooling
       (linters, formatters, analysers, doc generators, LSP servers, transpilers) in pure Go.
       It was extracted from <a href="https://github.com/go-embedded-ruby/ruby">go-embedded-ruby</a> —
-      which now consumes it — and is grown test-first against <strong>MRI Ruby 4.0.5</strong>, with
-      <strong>100% coverage</strong> enforced in CI across the six 64-bit targets.</p>
+      which now consumes it — and is grown test-first against <strong>MRI Ruby 4.0.5</strong>.
+      <strong>100% coverage</strong> is enforced in CI on all three OS lanes, and the suite also runs
+      on all <strong>six 64-bit targets</strong> — amd64 and arm64 natively, riscv64 / loong64 /
+      ppc64le / s390x under QEMU — plus <code>js/wasm</code> and <code>wasip1/wasm</code>.
+      The current release is <a href="https://github.com/go-ruby-parser/parser/tree/v0.2.0"><strong>v0.2.0</strong></a>
+      (2026-09-21), which closed fourteen grammar gaps: every one of the 68 files in the pinned
+      ruby/spec <code>language/</code> corpus now parses, thirteen of which had not parsed at all
+      before.</p>
 
     <section class="grid">
       {{ range .Site.Params.repos }}
