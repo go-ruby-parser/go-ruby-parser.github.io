@@ -88,7 +88,7 @@
       <span class="pill">stateful lexer</span>
       <span class="pill">recursive-descent + Pratt</span>
       <span class="pill">typed AST</span>
-      <span class="pill">v0.2.0 · 2026-09-21</span>
+      <span class="pill">v0.4.0 · 2026-09-26</span>
       <span class="pill">Ruby 4.0 subset</span>
       <span class="pill">pattern matching</span>
       <span class="pill">heredocs</span>
@@ -119,10 +119,13 @@
       <strong>100% coverage</strong> is enforced in CI on all three OS lanes, and the suite also runs
       on all <strong>six 64-bit targets</strong> — amd64 and arm64 natively, riscv64 / loong64 /
       ppc64le / s390x under QEMU — plus <code>js/wasm</code> and <code>wasip1/wasm</code>.
-      The current release is <a href="https://github.com/go-ruby-parser/parser/tree/v0.2.0"><strong>v0.2.0</strong></a>
-      (2026-09-21), which closed fourteen grammar gaps: every one of the 68 files in the pinned
-      ruby/spec <code>language/</code> corpus now parses, thirteen of which had not parsed at all
-      before.</p>
+      The current release is <a href="https://github.com/go-ruby-parser/parser/tree/v0.4.0"><strong>v0.4.0</strong></a>
+      (2026-09-26). Measured on 2026-09-26: <strong>all 80</strong> <code>_spec.rb</code> files in the
+      pinned ruby/spec <code>language/</code> corpus parse, and of 47 top-level CRuby 4.0.5 stdlib
+      files MRI accepts, this parser accepts 46. On parse speed it is roughly
+      <strong>1.9× quicker than <code>Ripper.sexp</code></strong> and about
+      <strong>1.6× slower than the C parser built into CRuby</strong>
+      (<code>RubyVM::AbstractSyntaxTree.parse</code>).</p>
 
     <section class="grid">
       {{ range .Site.Params.repos }}
