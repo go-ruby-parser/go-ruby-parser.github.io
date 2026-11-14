@@ -1,5 +1,5 @@
 module github.com/go-ruby-parser/go-ruby-parser.github.io
 
-go 1.27.3
+go 1.27.4
 
-require github.com/go-fleettools/landingkit v0.7.1
+require github.com/go-fleettools/landingkit v0.26.0
