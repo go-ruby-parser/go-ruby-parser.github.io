@@ -40,11 +40,9 @@
   <div class="hero"><div class="wrap">
     <div>
       <h1 class="head">go-ruby-parser</h1>
-      <p class="sub">A Ruby front-end in pure Go — lexer, parser, AST. No cgo, no Prism.</p>
-      <div class="cta">
-        <a class="btn btn-primary" href="/docs/">{{ partial "icons/book.html" . }}Documentation</a>
-        <a class="btn btn-ghost" href="https://github.com/go-ruby-parser/parser">{{ partial "icons/github.html" . }}GitHub</a>
-      </div>
+      <p class="sub">A Ruby front-end in {{ if partial "mantra-on.html" . }}Go{{ else }}pure Go{{ end }} — lexer, parser, AST. {{ if not (partial "mantra-on.html" $) }}No cgo{{ end }}, no Prism.</p>
+      {{/* [[params.cta]] in hugo.toml: the kit renders the row */}}
+      {{ partial "cta.html" . }}
       <div class="trust">{{ if not (partial "mantra-on.html" $) }}<span class="pill">pure Go · zero cgo</span>{{ end }}<span class="pill">stateful lexer</span><span class="pill">recursive-descent + Pratt</span><span class="pill">typed AST</span><span class="pill">v0.4.0 · 2026-09-26</span><span class="pill">Ruby 4.0 subset</span><span class="pill">pattern matching</span><span class="pill">heredocs</span><span class="pill">MRI 4.0.5 differential-tested</span><span class="pill">100% coverage</span><span class="pill">6 arches · WebAssembly</span></div>
       <div class="legacy"><div class="badges">
       <a href="/docs/"><img alt="Documentation (MkDocs Material + mike)" src="https://img.shields.io/badge/docs-mkdocs--material-9B1C2E"></a>
